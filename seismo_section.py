@@ -205,7 +205,6 @@ if __name__=="__main__":
                 for num, line in enumerate(myFile):
                     if 'ACTION' in line:
                         nl_action = num
-                
             for tlines in tagged_lines['3']:
                 if tlines[1]==nl_action-1:
                     place = tlines[0].split('3')[0].strip()
@@ -326,7 +325,6 @@ if __name__=="__main__":
                     'UC.KLB..HH': 'LU.KLB..HH',
                     }
 
-        #print(full_st.__str__(extended=True))
         for tr in full_st:
             ## Checking if BA23 is on the waveform files
             if tr.id=='.BA21..A L':
