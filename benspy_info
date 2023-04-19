@@ -1,0 +1,33 @@
+#!/bin/bash
+
+echo -e "
+##############
+The following scripts are part of the Benspy package and should be ready to run in your machine:
+
+> benspy_availability.py:\t Create availability plots for custom stations/networks.
+
+> benspy_checkgaps.py:\t Check for gaps in 2-min files due to corrupted data.
+
+> benspy_createdrums.py:\t Create daily drums for custom stations.
+
+> benspy_drum2wave.py:\t Get waveforms of Bensberg stations based on drum_select files.
+
+> benspy_drumplots.py:\t Create PNG files to be shown at Bensberg website.
+
+> benspy_extdrums.py:\t Create daily drums for non-Bensberg stations.
+
+> benspy_extwaves.py:\t Get waveforms of non-Bensberg stations based on drum_select files.
+
+> benspy_gdarchive.py:\t Archive GD waveforms.
+
+> benspy_getwaves.py:\t Get waveforms based on custom starting and ending times, for custom stations.
+
+> benspy_metadata.py:\t Download from SMP and update local metadata.
+
+> benspy_ppsd.py:\t Create PPSDs figures and curves for custom stations/channels and times.
+
+> benspy_soh.py:\t Create state-of-health figures for Seedlink stations.
+
+> benspy_toarchive.py:\t Archive 2-min files to SDSarchive (or any other custom archive).
+##############
+"

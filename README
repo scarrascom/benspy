@@ -1,0 +1,120 @@
+###############################################################################
+############################### BENSPY ########################################
+ Set of python scripts for managing seismic data and resources of the Bensberg 
+            Earthquake Observatory of the University of Cologne                
+###############################################################################
+
+INITIAL CONSIDERATIONS:
+0.0 This README file contains the steps for installing and running the Benspy package in Linux machine only. 
+
+0.1 All the Bensberg python scripts (Benspy package) are stored in the following directory: 
+    /mnt/Station/scripts/benspy 
+    The idea of this README file is to configure your machine to run it directly from there.
+    This way, any changes to the code will be done just once.
+    If you want to do modifications to the scripts, please make a local copy of it and configure accordingly.
+
+0.2 Because we work over the network, you need to mount the NAS directories, which are expected to be mounted in the /mnt directory. The netConnect script should do this easily.
+   In particular, please be sure you have the following directories already mounted:
+   /mnt/Station
+   /mnt/SC-Share
+   /mnt/ACQ
+   /mnt/SeisAn
+   /mnt/Projects
+
+0.3 The requirements for running the Benspy scripts are:
+
+- Python3.8
+- py3seismo environment (and all the python packages there, see below)
+- dos2unix package (sudo apt install dos2unix)
+- java (optional, but really needed for benspy_metadata) >> sudo apt install dos2unix openjdk-11-jdk
+
+0.4 Due to the standarization, the Benspy scripts run with the same shebang: /home/seismo/venvs/py3seismo/bin/python
+    Therefore, the username of your machine MUST be seismo and the virtual environment has to be installed under venvs directory.
+
+################ INSTALLATION PY3SEISMO VIRTUAL ENVIRONMENT ####################
+
+1.1 Create a virtual environment directory: /home/seismo/venvs
+
+> mkdir /home/seismo/venvs
+
+1.2 Create the py3seismo virtual environment using the python commands:
+
+> python3 -m venv /home/seismo/venvs/py3seismo (check that the python3 is python3.8 version)
+
+** For this, you need to have installed python3.8-venv (can be 3.10 or any other version)
+
+1.3 Activate the py3seismo venv by sourcing the activate binary:
+
+> source /home/seismo/venvs/py3seismo/bin/activate
+
+1.4 Once this is done, you will be working inside the virtual environment. Now, you need to install all the required packages.
+   To do this, please use the requirements file under the Benspy directory:
+
+> pip install -r /mnt/Station/scripts/benspy/requirements_py3seismo_20221205.txt
+
+1.5 Once these packages are installed, you can deactivate the environment by commanding:
+
+> deactivate
+
+##### RUNNING BENSPY SCRIPTS ######
+
+2.1 In order to run the Benspy scripts anywhere from the terminal, you have to 
+    include the Benspy directory to your PATH and PYTHONPATH, so you have to modify 
+    your .bashrc (~/.bashrc) file with your favourite text editor 
+    and just copy & paste these lines at the end of the file.
+
+## Benspy
+alias py3='source /home/seismo/venvs/py3seismo/bin/activate'
+benspydir='/mnt/Station/scripts/benspy'
+export PYTHONPATH=${PYTHONPATH}:${benspydir}
+export PATH=${PATH}:${benspydir}
+
+2.2 Source your ~/.bashrc file (or close and open a new terminal/tab instead):
+
+> source ~/.bashrc
+
+2.3 In order to properly run the unix2dos function and create the drum files (benspy_createdrums.py or benspy_extdrums.py),
+    you might have to give sudo permissions to unix2dos. To do this, type in the terminal:
+
+> sudo visudo (will ask for the sudo password and open the /etc/sudoers file)
+
+Add the following line at the end of the file.
+
+seismo ALL=(ALL) NOPASSWD: /usr/bin/unix2dos
+
+############
+
+Now you should be able to run all the python scripts from the terminal! ;-)
+You can run benspy_info (simple bash script) to get an overview of all the benspy scripts and their purposes. You will get the following output:
+
+The following scripts are part of the Benspy package and should be ready to run in your machine:
+> benspy_availability:	 Create availability plots for custom stations/networks.
+
+> benspy_checkgaps:	 Check for gaps in 2-min files due to corrupted data.
+
+> benspy_createdrums:	 Create daily drums for custom stations.
+
+> benspy_drum2wave:	 Get waveforms of Bensberg stations based on drum_select files.
+
+> benspy_drumplots:	 Create PNG files to be shown at Bensberg website.
+
+> benspy_extdrums.py:	 Create daily drums for non-Bensberg stations.
+
+> benspy_extwaves.py:	 Get waveforms of non-Bensberg stations based on drum_select files.
+
+> benspy_gdarchive.py:	 Archive GD waveforms.
+
+> benspy_getwaves.py:	 Get waveforms based on custom starting and ending times, for custom stations.
+
+> benspy_metadata.py:	 Update and download metadata from SMP.
+
+> benspy_ppsd.py:	 Create PPSDs figures and curves for custom stations/channels and times.
+
+> benspy_soh.py:	 Create state-of-health figures for Seedlink stations.
+
+> benspy_toarchive.py:	 Archive 2-min files to SDSarchive.
+
+
+Should you have any questions, suggestions, comments, etc, don't hesitate to let me know, please.
+
+Sebastian

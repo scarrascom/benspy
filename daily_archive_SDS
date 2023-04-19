@@ -1,0 +1,17 @@
+#!/bin/bash
+
+yesterday=$(date -u -d 'yesterday' +'%Y-%m-%d')
+today=$(date -u +'%Y-%m-%d')
+stations='BA01,HOBG'
+
+# Archive in the SDSarchive (for transferring to EIDA)
+archive='/mnt/Projects/SDSarchive'
+/mnt/Station/scripts/benspy/benspy_toarchive.py ${yesterday} ${today} -s ${stations} -a ${archive}
+
+## Copy new changes to the permanent archive SC-Share
+yday_year=$(date -u -d 'yesterday' +'%Y')
+
+for sta in {BA01,HOBG};
+do 
+	cp -urv /mnt/Projects/SDSarchive/${yday_year}/BQ/${sta} /mnt/SC-Share/seiscomp/var/lib/archive/${yday_year}/BQ/.
+done

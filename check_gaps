@@ -1,0 +1,9 @@
+#!/bin/bash
+
+## Daily retrievement of data
+yesterday=$(date -u -d 'yesterday' +'%Y-%m-%d')
+today=$(date -u +'%Y-%m-%d')
+tomorrow=$(date -u -d 'tomorrow' +'%Y-%m-%d')
+
+/mnt/Station/scripts/benspy/benspy_checkgaps.py ${yesterday} ${tomorrow} -n sefo > /tmp/sefo_check.log &
+/mnt/Station/scripts/benspy/benspy_checkgaps.py ${yesterday} ${tomorrow} -n bns > /tmp/bns_check.log &
